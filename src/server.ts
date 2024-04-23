@@ -1,8 +1,13 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { routes } from "./routers";
+import { request } from "http";
 
 const app = Fastify({ logger: true})
+
+app.setErrorHandler((error, request, reply) => {
+    reply.code(400).send( { Message: error.message })
+})
 
 const start = async () =>{
 
